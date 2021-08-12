@@ -1,24 +1,52 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
-import axios from 'axios';
+const url = 'https://reqres.in/api/users?page='
 
 function App() {
   const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const getUsers = async () => {
+    const response = await fetch(url + currentPage);
+    const items = await response.json()
+    setUsers(items.data);
+    setCurrentPage(items.page);
+    setTotalPages(items.total_pages);
+  }
+
+  const onClickNext = () => {
+    setCurrentPage(prev => prev + 1)
+  }
+
+  const onClickPrevious = () => {
+    setCurrentPage(prev => prev - 1)
+  }
+
 
   useEffect(() => {
-    const fetchItems = async () => {
-      const result = await axios.get('https://reqres.in/api/users?page=2')
-      console.log(result.data)
-    }
-    fetchItems();
-  }, [])
+    getUsers();
+  }, [currentPage])
+
+
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hello</h1>
-      </header>
-    </div>
+    < div className="App" >
+      <h1>Users</h1>
+      <ul className="users">
+        {users.map((user) => {
+          const { id, first_name, last_name, avatar } = user
+          return <li key={id}>
+            <img src={avatar} />
+            {first_name} {last_name}
+          </li>
+        })}
+      </ul>
+      <nav>
+        <button onClick={() => onClickPrevious()} className="btn">Prev</button>
+        <button disabled={currentPage >= totalPages} onClick={() => onClickNext()} className="btn">Next</button>
+      </nav>
+    </div >
   );
 }
 

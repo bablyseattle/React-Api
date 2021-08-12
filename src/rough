@@ -1,0 +1,8 @@
+setUsersPerPage(users.per_page);
+    setTotalPage(users.total_pages);
+    setTotalUsers(users.total);
+
+
+    const [usersPerPage, setUsersPerPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(1);
+  const [totalUsers, setTotalUsers] = useState(0);

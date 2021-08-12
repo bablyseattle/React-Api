@@ -43,7 +43,7 @@ function App() {
         })}
       </ul>
       <nav>
-        <button onClick={() => onClickPrevious()} className="btn">Prev</button>
+        <button onClick={() => onClickPrevious()} className="button">Prev</button>
         <button disabled={currentPage >= totalPages} onClick={() => onClickNext()} className="btn">Next</button>
       </nav>
     </div >

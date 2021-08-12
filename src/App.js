@@ -26,6 +26,7 @@ function App() {
 
   useEffect(() => {
     getUsers();
+    // eslint-disable-next-line
   }, [currentPage])
 
 
@@ -37,7 +38,7 @@ function App() {
         {users.map((user) => {
           const { id, first_name, last_name, avatar } = user
           return <li key={id}>
-            <img src={avatar} />
+            <img src={avatar} alt={first_name} />
             {first_name} {last_name}
           </li>
         })}
